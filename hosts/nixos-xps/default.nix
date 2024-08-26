@@ -7,8 +7,7 @@
 }: {
   imports =
     [
-      # Hardware config
-      inputs.hardware.nixosModules.dell-xps-15-9520-nvidia
+      # Generic Hardware Config
       ./hardware-configuration.nix
 
       # Common config
@@ -16,10 +15,9 @@
 
       # Optional configs
       ../common/optional/hyprland.nix
-      ../common/optional/wacom.nix
 
       # User config
-      ../common/users/dileep
+      ../common/users/rahmatullo # Replace with your actual user config path
     ]
     ++ (builtins.attrValues outputs.nixosModules);
 
@@ -34,16 +32,15 @@
   boot.loader.systemd-boot.configurationLimit = 15;
   boot.supportedFilesystems = ["ntfs"];
 
-  networking.hostName = "nixos-xps"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.hostName = "your-hostname"; # Define your hostname.
 
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
   };
 
-  # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = ["nvidia"];
+  # Use modesetting driver for integrated graphics
+  services.xserver.videoDrivers = ["modesetting"];
   services.xserver.xkbOptions = "ctrl:nocaps";
   console.useXkbConfig = true;
   hardware.bluetooth.enable = true;
@@ -55,19 +52,6 @@
     xkb.layout = "us";
     xkb.variant = "";
     displayManager.gdm.enable = true;
-  };
-
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = true;
-    powerManagement.finegrained = false;
-    open = true;
-    nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-    prime = {
-      intelBusId = "PCI:0:02:0";
-      nvidiaBusId = "PCI:1:00:0";
-    };
   };
 
   system.stateVersion = "23.11";
