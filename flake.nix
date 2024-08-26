@@ -79,7 +79,7 @@
     # NOTE: home-manager is also imported as a module within nixosConfigurations
     nixosConfigurations = {
       # Main desktop
-      tsuki = lib.nixosSystem {
+      rakhmatullo = lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
           ./hosts/tsuki
@@ -114,20 +114,6 @@
             home-manager.extraSpecialArgs = {inherit inputs outputs;};
           }
         ];
-      };
-    };
-
-    homeConfigurations = {
-      # Work
-      "g8k@Mac124929" = lib.homeManagerConfiguration {
-        modules = [./home/Mac124929.nix];
-        pkgs = pkgsFor.x86_64-darwin;
-        extraSpecialArgs = {inherit inputs outputs;};
-      };
-      "g8k@lap135849" = lib.homeManagerConfiguration {
-        modules = [./home/lap135849.nix];
-        pkgs = pkgsFor.x86_64-linux;
-        extraSpecialArgs = {inherit inputs outputs;};
       };
     };
   };
