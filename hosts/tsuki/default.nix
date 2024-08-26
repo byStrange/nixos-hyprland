@@ -37,7 +37,7 @@
   # amd gpu support for kernel
   boot.initrd.kernelModules = ["amdgpu"];
 
-  networking.hostName = "tsuki"; # Define your hostname.
+  networking.hostName = "rakhmatullo"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   hardware.graphics = {
